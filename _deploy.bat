@@ -1,0 +1,1 @@
+xcopy *.jsx "C:\Users\johnv\AppData\Roaming\Adobe\InDesign\Version 17.0\en_US\Scripts\Scripts Panel" /E /Y
