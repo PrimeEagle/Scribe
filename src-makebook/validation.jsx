@@ -170,6 +170,11 @@ function validate(doc, styleName) {
         validateParentPage(inDesignPath + masterDocName, tableOfContentsParentName);
     }
 
+    if(hasTOC || hasListOfFigures || hasListOfTables) {
+        validateParagraphStyle(inDesignPath + masterDocName, tocTitleParagraphStyleName);
+        validateParagraphStyle(inDesignPath + masterDocName, tocTextParagraphStyleName);
+    }
+    
     if(hasForeword) {
         validateParentPage(inDesignPath + masterDocName, forewordParentName);
     }

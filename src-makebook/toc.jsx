@@ -5,28 +5,38 @@ function processTableOfContents(book) {
 
     for (var i = 0; i < book.bookContents.length; i++) {
         if (book.bookContents[i].name == tocDocName) {
-            mainTocDoc = book.bookContents[i];
+            mainTocDoc = app.open(book.bookContents[i].fullName, false);
         }
         
         if (book.bookContents[i].name == listOfTablesDocName) {
-            tableTocDoc = book.bookContents[i];
+            tableTocDoc = app.open(book.bookContents[i].fullName, false);
         }
 
         if (book.bookContents[i].name == listOfFiguresDocName) {
-            figureTocDoc = book.bookContents[i];
+            figureTocDoc = app.open(book.bookContents[i].fullName, false);
         }
     }
 
-    processTableOfContentsForDocument(mainTocPath, mainTocDoc);
-    processTableOfContentsForDocument(tablesTocPath, tableTocDoc);
-    processTableOfContentsForDocument(figuresTocPath, figureTocDoc);
+    if(hasTOC) {
+        processTableOfContentsForDocument(mainTocPath, mainTocDoc, book, tocStandardStyleName);
+    }
+
+    if(hasListOfTables) {
+        processTableOfContentsForDocument(tablesTocPath, tableTocDoc, book, tocTableStyleName);
+    }
+
+    if(hasListOfFigures) {
+        processTableOfContentsForDocument(figuresTocPath, figureTocDoc, book, tocFigureStyleName);
+    }
 }
 
-function processTableOfContentsForDocument(inputFile, tocDoc) {
+function processTableOfContentsForDocument(inputFile, doc, book, tocStyleName) {
         var txtFile = File(indexCsvPath);
         if(!txtFile.exists) { return; }
 
         var stylesHierarchy = [];
+        var tocStyle = doc.tocStyles.itemByName(tocStyleName);
+
         txtFile.open('r');
         while (!txtFile.eof) {
             var line = txtFile.readln();
@@ -36,15 +46,15 @@ function processTableOfContentsForDocument(inputFile, tocDoc) {
         }
         txtFile.close();
 
-        for (var i = tocDoc.stories.length - 1; i >= 0; i--) {
-            var story = tocDoc.stories[i];
+        for (var i = doc.stories.length - 1; i >= 0; i--) {
+            var story = doc.stories[i];
             if (story.storyType == StoryTypes.TOC_STORY) {
                 story.remove();
             }
         }
 
         for (var i = 0; i < stylesHierarchy.length; i++) {
-            var entry = myTOCStyle.tocStyleEntries.add({
+            var entry = tocStyle.tocStyleEntries.add({
                 name: stylesHierarchy[i].name,
                 sortType: SortType.SORT_BY_LAYOUT
             });
@@ -52,5 +62,5 @@ function processTableOfContentsForDocument(inputFile, tocDoc) {
             entry.leftIndent = stylesHierarchy[i].level + " in";
         }
 
-        tocDoc.createTOC(myTOCStyle, true, myDocs, tocDoc.pages.item(0));
+        doc.createTOC(tocStyle, true, book);
 }

@@ -229,6 +229,12 @@ var indexBoldCharacterStyleName          = "Index Bold";
 var indexCharacterStyleName              = "Index";
 
 
+// TOC styles
+var tocStandardStyleName                 = "TOC Contents";
+var tocTableStyleName                    = "TOC Tables";
+var tocFigureStyleName                   = "TOC Figures";
+
+
 // Unicode language definitions
 var languageRules                       = [
                                             {

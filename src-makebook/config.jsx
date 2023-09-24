@@ -12,7 +12,7 @@ if(hasCopyrightPage)                        { frontMatterDocs.push(frontMatterDo
 if(hasDedication)                           { frontMatterDocs.push(dedicationDocName);       }
 if(hasEpigraph)                             { frontMatterDocs.push(epigraphDocName);         }
 if(hasListOfTables)                         { frontMatterDocs.push(listOfTablesDocName);     }
-if(hasListOfFigures)                        { frontMatterDocs.push(listOfTablesDocName);     }
+if(hasListOfFigures)                        { frontMatterDocs.push(listOfFiguresDocName);    }
 if(hasTOC)                                  { frontMatterDocs.push(tocDocName);              }
 if(hasForeword)                             { frontMatterDocs.push(forewordDocName);         }
 if(hasPreface)                              { frontMatterDocs.push(prefaceDocName);          }
