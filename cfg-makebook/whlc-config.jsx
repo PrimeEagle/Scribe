@@ -2,13 +2,15 @@
     TO DO
     create master pages
     move images during load
+    resize images
+    resize tables
     determine table styles during load
     move tables during load
     populate input config files
     epigraphs being on their own page
-    to do style not deleting in scrivener
     style for footnotes and endnotes
     create all styles
+    importing extra mater documents
 */
 
 
@@ -33,6 +35,9 @@ var updateFirstParagraphStylePerChapter  = true;
 var addChapterNumberStyles               = true;
 var removeBlankLines                     = true;
 var usesParentPages                      = true;
+var removeDraftParagraphStyles           = true;
+var resizeImages                         = true;
+var resizeTables                         = true;
 
 
 // configure book parts
@@ -208,6 +213,7 @@ var chapterBodyParagraphStyleName        = "Chapter Body";
 var chapterBodyFirstParagraphStyleName   = "Chapter Body First";
 var normalParagraphStyleName             = "Normal";
 var defaultParagraphStyleName            = chapterBodyParagraphStyleName;
+var draftParagraphStyleNames             = [ "To Do" ];
 
 
 // character style names
@@ -299,9 +305,11 @@ var tocTitle                            = "Table of Contents";
 
 
 // miscellaenous
-var graphicSizeScaling                   = 6;
+var maxImageSizes                        = [
+                                                { width: 45, height: 60 },
+                                                { width: 90, height: 120 }
+                                            ];
 var maxWidth                             = 45;
-var maxHeight                            = 60;
 var elements                             = [
                                                 "earth",
                                                 "metal",

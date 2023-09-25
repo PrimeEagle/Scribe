@@ -87,6 +87,18 @@ function validateString(str, strName) {
     }
 }
 
+function validateSettingsBothTrue(settingName1, settingName2) {
+    if(this[settingName1] === true && this[settingName2] !== true) {
+        alert("If setting '" + settingName1 + "' is true, then setting '" + settingName2 + "' must be true.");
+    }
+}
+
+function validateSettingsBothFalse(settingNam1, settingName2) {
+    if(this[settingName1] === false && this[settingName2] !== false) {
+        alert("If setting '" + settingName1 + "' is true, then setting '" + settingName2 + "' must be true.");
+    }
+}
+
 function validate(doc, styleName) {
     validateFolder(inDesignPath);
     validateFolder(wordPath);
@@ -98,7 +110,9 @@ function validate(doc, styleName) {
         validateArray("languageRules");
     }
 
-    
+    validateSettingsBothTrue("hasImages", "resizeImages");
+    validateSettingsBothTrue("hasTables", "resizeTables");
+
     if(hasPageBackgroundImages) {
         validateFolder(imagePath);
     }
@@ -108,6 +122,7 @@ function validate(doc, styleName) {
         validateParagraphStyle(inDesignPath + masterDocName, defaultParagraphStyleName);
     }
 
+    
     if(hasFrontCover) {
         validateFile(projectInfoPath);
         validatePagePart(inDesignPath + masterDocName, frontCoverParentName, titleTextFrameName);

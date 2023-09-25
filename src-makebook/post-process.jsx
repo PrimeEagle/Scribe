@@ -1,4 +1,3 @@
-
 var postProcessFuncListDocument = [];
 var postProcessFuncListPage = [];
 var postProcessFuncListTextFrame = [];
@@ -23,10 +22,10 @@ if(hasImages)                            { postProcessFuncListTextFrame.push("pp
 if(hasUnicodeLanguageScripts)            { postProcessFuncListTextFrame.push("pp_tf_updateLanguageStyles"); }
 if(updateFirstParagraphStylePerChapter)  { postProcessFuncListTextFrame.push("pp_tf_updateFirstParagraphOfChapters"); }
 if(addChapterNumberStyles)               { postProcessFuncListTextFrame.push("pp_tf_addChapterNumberStyle"); }
+if(removeDraftParagraphStyles)           { postProcessFuncListTextFrame.push("pp_tf_removeDraftParagraphStyles"); }
 
 if(replaceNormalParagraphStyle)          { postProcessFuncListParagraph.push("pp_p_changeNormalParagraphStyle"); }
 if(removeBlankLines)                     { postProcessFuncListParagraph.push("pp_p_removeBlankLines"); }
-
 
 
 
@@ -228,9 +227,21 @@ function pp_pg_applyParentPage(doc, page) {
 
 
 // ___ text frame functions (pp_tf_...) (doc, pageNum, textFrame)
+function pp_tf_removeDraftParagraphStyles(doc, pageNum, textFrame) {
+    for (var p = textFrame.paragraphs.length - 1; p >= 0; p--) {
+        var para = textFrame.paragraphs[p];
+        var currentStyleName = para.appliedParagraphStyle.name;
+
+        if(containsValue(draftParagraphStyleNames, currentStyleName)) {
+            para.remove();
+        }
+    }
+}
+
 function pp_tf_processInlineGraphics(doc, pageNum, textFrame) {
-    processInlineGraphics(textFrame);
-    processFirstRectangleGraphics(doc.pages[pageNum], textFrame);
+    processX(doc, pageNum, textFrame);
+    //processInlineGraphics(textFrame);
+    //processFirstRectangleGraphics(doc.pages[pageNum], textFrame);
 }
 
 function pp_tf_updateLanguageStyles(doc, pageNum, textFrame) {
